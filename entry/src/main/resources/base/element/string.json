@@ -1,0 +1,96 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "daily_paper",
+      "value": "日报"
+    },
+    {
+      "name": "discover",
+      "value": "发现"
+    },
+    {
+      "name": "hot",
+      "value": "热门"
+    },
+    {
+      "name": "mime",
+      "value": "我的"
+    },
+    {
+      "name": "loading",
+      "value": "加载中..."
+    },
+    {
+      "name": "no_more_data",
+      "value": "没有更多数据了"
+    },
+    {
+      "name": "follow",
+      "value": "关注"
+    },
+    {
+      "name": "category",
+      "value": "分类"
+    },
+    {
+      "name": "topic",
+      "value": "专题"
+    },
+    {
+      "name": "news",
+      "value": "咨询"
+    },
+    {
+      "name": "recommend",
+      "value": "推荐"
+    },
+    {
+      "name": "add_follow",
+      "value": "+关注"
+    },
+    {
+      "name": "collect",
+      "value": "收藏"
+    },
+    {
+      "name": "comment",
+      "value": "评论"
+    },
+    {
+      "name": "my_message",
+      "value": "我的消息"
+    },
+    {
+      "name": "my_record",
+      "value": "我的记录"
+    },
+    {
+      "name": "my_cache",
+      "value": "我的缓存'"
+    },
+    {
+      "name": "watch_history",
+      "value": "观看记录"
+    },
+    {
+      "name": "feedback",
+      "value": "意见反馈"
+    },
+    {
+      "name": "delete",
+      "value": "删除"
+    }
+  ]
+}
