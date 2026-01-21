@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/NewsDetailPage",
     "pages/VideoDetailPage",
-    "pages/WatchHistoryPage"
+    "pages/WatchHistoryPage",
+    "pages/CategoryDetailPage"
   ]
 }

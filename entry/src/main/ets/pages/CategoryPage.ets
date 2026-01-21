@@ -1,6 +1,7 @@
 import { Category } from "../model/Category";
 import { PromptAction } from "@kit.ArkUI";
 import { CategoryViewModel } from "../viewmodel/CategoryViewModel";
+import { PARAM_CATEGORY_DATA_KEY } from "../common/Constants";
 
 @Component
 export struct CategoryPage {
@@ -60,6 +61,15 @@ export struct CategoryPage {
               .textAlign(TextAlign.Center)
           }
         }
+        .onClick(() => {
+          const params: Record<string, Category> = {};
+          params[PARAM_CATEGORY_DATA_KEY] = category;
+          this.uiContext.getRouter().pushUrl({
+            url: 'pages/CategoryDetailPage',
+            params: params
+          }).catch(() => {
+          })
+        })
         .width('100%')
       }, (_item: Category, index: number) => `key-${index}`)
     }

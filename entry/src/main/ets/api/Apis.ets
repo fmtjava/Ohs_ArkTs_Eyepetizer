@@ -1,4 +1,4 @@
-const BASE_URL: string = "http://baobab.kaiyanapp.com/api/";
+export const BASE_URL: string = "http://baobab.kaiyanapp.com/api/";
 
 export const Daily_URL: string = BASE_URL + "v2/feed?num=0";
 
