@@ -16,3 +16,5 @@ export const RECOMMEND_LIST: string = BASE_URL + "v7/community/tab/rec";
 
 export const RELATED_VIDEO = BASE_URL + "v4/video/related";
 
+export const TOPIC_DETAIL_URL = BASE_URL + "v3/lightTopics/internal/"
+

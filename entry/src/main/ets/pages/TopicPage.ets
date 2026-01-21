@@ -1,4 +1,5 @@
 import { PromptAction } from '@kit.ArkUI';
+import { PARAM_TOPIC_ID_KEY } from '../common/Constants';
 import { TopicDataSource } from '../datasource/TopicDataSource';
 import { TopicItem } from '../model/Topic';
 import { LoadMoreWidget } from '../view/LoadingMoreWidget';
@@ -65,7 +66,7 @@ export struct TopicPage {
   @Builder
   private getListView() {
     List() {
-      LazyForEach(this.dataSource, (item: TopicItem, index: number) => {
+      LazyForEach(this.dataSource, (item: TopicItem) => {
         ListItem() {
           this.TopicItemWidget(item)
         }
@@ -120,5 +121,14 @@ export struct TopicPage {
         .margin({ left: 10, right: 10 })
     }
     .width('100%')
+    .onClick(() => {
+      const params: Record<string, number> = {};
+      params[PARAM_TOPIC_ID_KEY] = item.data.id;
+      this.uiContext.getRouter().pushUrl({
+        url: 'pages/TopicDetailPage',
+        params: params
+      }).catch(() => {
+      })
+    })
   }
 }

@@ -4,8 +4,7 @@ import { Item, ItemData } from '../model/Item';
 import { DateUtil } from '../common/DateUtil';
 import { VideoDetailViewModel } from '../viewmodel/VideoDetailViewModel';
 import { PromptAction } from '@kit.ArkUI';
-import window from '@ohos.window';
-import { BusinessError } from '@ohos.base';
+import { hideNavBar, resetNavBar } from '../common/Immersive';
 
 const VIDEO_SMALL_CARD_TYPE: string = "videoSmallCard";
 
@@ -25,48 +24,14 @@ struct VideoDetailPage {
     if (this.itemData) {
       this.videoController.start()
     }
-    this.hideNavBar();
+    hideNavBar(this.getUIContext().getHostContext());
   }
 
   onPageHide(): void {
     if (this.itemData) {
       this.videoController.pause();
     }
-    this.resetNavBar();
-  }
-
-  // 设置导航栏透明
-  private hideNavBar() {
-    // 1. 获取当前窗口
-    window.getLastWindow(this.getUIContext().getHostContext(), (err: BusinessError, win: window.Window) => {
-      if (err.code) {
-        console.error(`获取窗口失败：${err.message}`);
-        return;
-      }
-      // 2. 设置导航区域隐藏
-      win.setSpecificSystemBarEnabled('navigationIndicator', false).then(() => {
-        console.info('Succeeded in setting the navigation indicator to be invisible.');
-      }).catch((err: BusinessError) => {
-        console.error(`Failed to set the navigation indicator to be invisible. Code is ${err.code}, message is ${err.message}`);
-      });
-    });
-  }
-
-  // 恢复默认导航栏
-  private resetNavBar() {
-    // 1. 获取当前窗口
-    window.getLastWindow(this.getUIContext().getHostContext(), (err: BusinessError, win: window.Window) => {
-      if (err.code) {
-        console.error(`获取窗口失败：${err.message}`);
-        return;
-      }
-      // 2. 设置导航区域隐藏
-      win.setSpecificSystemBarEnabled('navigationIndicator', true).then(() => {
-        console.info('Succeeded in setting the navigation indicator to be invisible.');
-      }).catch((err: BusinessError) => {
-        console.error(`Failed to set the navigation indicator to be invisible. Code is ${err.code}, message is ${err.message}`);
-      });
-    });
+    resetNavBar(this.getUIContext().getHostContext());
   }
 
   async aboutToAppear(): Promise<void> {

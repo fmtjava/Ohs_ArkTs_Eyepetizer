@@ -11,7 +11,7 @@ export struct HotTabListPage {
   @State refreshing: boolean = false;
   private uiContext: UIContext = this.getUIContext();
   private promptAction: PromptAction = this.uiContext.getPromptAction();
-  private viewMode: HotTabViewModel = new HotTabViewModel();
+  private viewModel: HotTabViewModel = new HotTabViewModel();
   private dataSource: HotTabDataSource = new HotTabDataSource([]);
 
   aboutToAppear(): void {
@@ -20,7 +20,7 @@ export struct HotTabListPage {
 
   async fetchData() {
     try {
-      const itemList: Item[] = await this.viewMode.loadTabListData(this.tab.apiUrl);
+      const itemList: Item[] = await this.viewModel.loadTabListData(this.tab.apiUrl);
       if (itemList.length > 0) {
         itemList.forEach(item => {
           this.dataSource.pushData(item);

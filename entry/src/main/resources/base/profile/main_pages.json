@@ -4,6 +4,7 @@
     "pages/NewsDetailPage",
     "pages/VideoDetailPage",
     "pages/WatchHistoryPage",
-    "pages/CategoryDetailPage"
+    "pages/CategoryDetailPage",
+    "pages/TopicDetailPage"
   ]
 }
