@@ -4,7 +4,7 @@ Kotlin：[Jetpack_Kotlin_Eyepetizer](https://github.com/fmtjava/Jetpack_Kotlin_E
 Compose：[Compose_Eyepetizer](https://github.com/fmtjava/Compose_Eyepetizer)<br /><br />
 Flutter版：[flutter_eyepetizer](https://github.com/fmtjava/flutter_eyepetizer)<br /><br />
 ReactNative版：[ReactNative_Eyepetizer](https://github.com/fmtjava/ReactNative_Eyepetizer)<br /><br />
-SwitfUI版：[SwitfUI_Eyepetizer]([https://github.com/fmtjava/ReactNative_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer))<br /><br />
+SwitfUI版：[SwitfUI_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer)<br /><br />
 小程序版：[wx_eyepetizer](https://github.com/fmtjava/wx_eyepetizer)<br /><br />
 
 **如果喜欢的话希望给个 `Star` 或 `Fork` ^_^ ，谢谢**
@@ -63,7 +63,7 @@ SwitfUI版：[SwitfUI_Eyepetizer]([https://github.com/fmtjava/ReactNative_Eyepet
    * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放等功能。
 # Thanks
   - [ohos/axios](https://gitcode.com/openharmony-sig/ohos_axios) 
-  - [ibestservices/ibest-orm]([https://github.com/JWAutumn/ACarousel](https://github.com/ibestservices/ibest-orm)) 
+  - [ibestservices/ibest-orm](https://github.com/ibestservices/ibest-orm)
  
  # 关于我
   - WX：fmtjava
