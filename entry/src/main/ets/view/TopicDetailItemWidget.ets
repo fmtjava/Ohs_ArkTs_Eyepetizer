@@ -50,6 +50,13 @@ export struct TopicDetailItemWidget {
           .onStop(() => {
             this.playState === PlayState.STOP;
           })
+          .visibility(this.playState === PlayState.START ? Visibility.Visible : Visibility.Hidden)
+
+        Image(this.itemData?.cover?.feed || '')
+          .borderRadius(4)
+          .width('100%')
+          .height('100%')
+          .visibility(this.playState === PlayState.START ? Visibility.Hidden : Visibility.Visible)
           .onClick(() => {
             this.handleOnClick();
           })
