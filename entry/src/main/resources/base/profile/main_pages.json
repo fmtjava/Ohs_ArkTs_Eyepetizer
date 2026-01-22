@@ -5,6 +5,7 @@
     "pages/VideoDetailPage",
     "pages/WatchHistoryPage",
     "pages/CategoryDetailPage",
-    "pages/TopicDetailPage"
+    "pages/TopicDetailPage",
+    "pages/IntelligentChatPage"
   ]
 }

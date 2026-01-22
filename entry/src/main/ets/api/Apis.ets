@@ -18,3 +18,4 @@ export const RELATED_VIDEO = BASE_URL + "v4/video/related";
 
 export const TOPIC_DETAIL_URL = BASE_URL + "v3/lightTopics/internal/"
 
+export const INTELLIGENT_CHAT_URL = 'https://spark-api-open.xf-yun.com/v2/chat/completions'

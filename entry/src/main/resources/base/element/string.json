@@ -91,6 +91,14 @@
     {
       "name": "delete",
       "value": "删除"
+    },
+    {
+      "name": "intelligent_chat",
+      "value": "智能对话"
+    },
+    {
+      "name": "send",
+      "value": "发送"
     }
   ]
 }

@@ -112,6 +112,18 @@ export struct DailyPage {
       })
       .position({ top: '50%', right: 15 })
       .translate({ y: '-50%' })
+      .bindMenu([
+        {
+          value: '智能对话',
+          action: () => {
+            this.uiContext.getRouter().pushUrl({
+              url: 'pages/IntelligentChatPage'
+            }).catch(() => {
+
+            })
+          }
+        }
+      ])
     }
     .width('100%')
     .height(45)
