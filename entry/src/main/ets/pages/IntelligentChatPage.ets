@@ -3,8 +3,7 @@ import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel'
 import { inputMethod } from '@kit.IMEKit';
 import { PromptAction } from '@kit.ArkUI';
 import { Choice } from '../model/ChatResponse';
-
-const ASSISTANT_ROLE = 'assistant'
+import { ChatLineWidget } from '../view/ChatLineWidget';
 
 @Entry
 @Component
@@ -60,14 +59,15 @@ struct IntelligentChatPage {
       offsetX: 0,
       offsetY: 4
     })
+    .expandSafeArea([SafeAreaType.KEYBOARD], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 
   @Builder
   private ChatListView() {
     Scroll() {
       Column() {
-        ForEach(this.msgList, (message: Message, index: number) => {
-          this.ChatLine(message);
+        ForEach(this.msgList, (message: Message) => {
+          ChatLineWidget({ msg: message });
         }, (_message: Message, index: number) => `chat-list-key-${index}`)
       }
       .width('100%')
@@ -83,54 +83,7 @@ struct IntelligentChatPage {
     .layoutWeight(1)
     .backgroundColor('#F8F7F8')
     .scrollBar(BarState.Off)
-  }
-
-  @Builder
-  private ChatLine(msg: Message) {
-    if (msg.role === ASSISTANT_ROLE) {
-      Row() {
-        Text(msg.content)
-          .fontSize(20)
-          .padding({
-            left: 8,
-            top: 8,
-            right: 8,
-            bottom: 8
-          })
-          .borderRadius(8)
-          .backgroundColor($r('sys.color.white'))
-          .constraintSize({ maxWidth: '90%' })
-      }
-      .width('100%')
-      .padding({
-        left: 4,
-        top: 4,
-        right: 4,
-        bottom: 4
-      })
-    } else {
-      Row() {
-        Text(msg.content)
-          .fontSize(20)
-          .padding({
-            left: 8,
-            top: 8,
-            right: 8,
-            bottom: 8
-          })
-          .backgroundColor('#96EF6B')
-          .borderRadius(8)
-          .constraintSize({ maxWidth: '90%' })
-      }
-      .width('100%')
-      .padding({
-        left: 4,
-        top: 4,
-        right: 4,
-        bottom: 4
-      })
-      .justifyContent(FlexAlign.End)
-    }
+    .expandSafeArea([SafeAreaType.KEYBOARD], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 
   @Builder
@@ -163,10 +116,11 @@ struct IntelligentChatPage {
       .opacity(this.sendButtonOpacity)
       .onClick(async () => {
         try {
+          if (this.chatInput === '') {
+            return
+          }
           // 显示加载框
           this.isShowLoading = true;
-          // 清空对话框
-          this.chatInput = '';
           // 隐藏软键盘
           await inputMethod.getController().stopInputSession();
           // 写入到消息列表
@@ -191,6 +145,9 @@ struct IntelligentChatPage {
               responseMessageList.push(new Message(choicesElement.message.role, choicesElement.message.content))
             }
             this.msgList = [...this.msgList, ...responseMessageList];
+
+            // 清空对话框
+            this.chatInput = '';
           } else {
             // 提示错误原因
             this.promptAction.openToast({
@@ -225,5 +182,6 @@ struct IntelligentChatPage {
       right: 4,
       bottom: 4
     })
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 }

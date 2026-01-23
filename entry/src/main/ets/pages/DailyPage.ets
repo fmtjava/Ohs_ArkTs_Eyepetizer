@@ -114,10 +114,22 @@ export struct DailyPage {
       .translate({ y: '-50%' })
       .bindMenu([
         {
-          value: '智能对话',
+          value: $r('app.string.intelligent_chat'),
+          icon: $rawfile('image/icon_intelligent_chat.svg'),
           action: () => {
             this.uiContext.getRouter().pushUrl({
               url: 'pages/IntelligentChatPage'
+            }).catch(() => {
+
+            })
+          }
+        },
+        {
+          value: $r('app.string.intelligent_writing'),
+          icon: $rawfile('image/con_intelligent_writing.svg'),
+          action: () => {
+            this.uiContext.getRouter().pushUrl({
+              url: 'pages/IntelligentWritingPage'
             }).catch(() => {
 
             })

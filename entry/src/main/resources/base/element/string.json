@@ -97,8 +97,24 @@
       "value": "智能对话"
     },
     {
+      "name": "intelligent_writing",
+      "value": "智能写作"
+    },
+    {
       "name": "send",
       "value": "发送"
+    },
+    {
+      "name": "input_article_topic",
+      "value": "输入文章的主题"
+    },
+    {
+      "name": "article_type",
+      "value": "类型："
+    },
+    {
+      "name": "word_count",
+      "value": "字数："
     }
   ]
 }
