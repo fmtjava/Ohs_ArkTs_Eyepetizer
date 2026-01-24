@@ -7,7 +7,9 @@
   "license": "",
   "dependencies": {
     "@ohos/axios": "^2.2.6",
-    "@ibestservices/ibest-orm": "^2.0.3"
+    "@ibestservices/ibest-orm": "^2.0.3",
+    "bugly": "0.5.1",
+    "@pura/harmony-utils": "^1.4.0"
   },
   "devDependencies": {},
   "dynamicDependencies": {}

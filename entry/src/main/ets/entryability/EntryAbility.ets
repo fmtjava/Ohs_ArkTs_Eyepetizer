@@ -2,11 +2,23 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { getORM, IBestORMInit } from '@ibestservices/ibest-orm';
+import { Bugly, BuglyBuilder, ModuleName } from 'bugly';
+import { DeviceUtil } from '@pura/harmony-utils';
 import { WatchHistory } from '../db/WatchHistory';
 
 const DOMAIN = 0x0000;
 
 export default class EntryAbility extends UIAbility {
+  private initBugly(context: Context): void {
+    const builder = new BuglyBuilder();
+    builder.appId = '17a836a117';
+    builder.appKey = 'dd9b0dbe-5d8d-4e6c-a0a2-168ec0621b4b';
+    builder.deviceId = DeviceUtil.getDeviceId();
+    builder.platform = BuglyBuilder.PLATFORM_PRO;
+    builder.enablePerfModules = ModuleName.AllModules;
+    Bugly.init(context, builder);
+  }
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
@@ -28,6 +40,9 @@ export default class EntryAbility extends UIAbility {
     // 应用启动时统一迁移所有表
     const orm = getORM();
     orm.migrate(WatchHistory);
+
+    // 初始化 Bugly
+    this.initBugly(this.context);
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {

@@ -1,11 +1,11 @@
-import { RankItemWidget } from "../view/RankItemWidget"
-import { LoadMoreWidget } from "../view/LoadingMoreWidget"
-import { PromptAction } from "@kit.ArkUI";
-import { SwiperDataSource } from "../datasource/SwiperDataSource";
-import { Item, ItemData } from "../model/Item";
-import { DailyDataSource } from "../datasource/DailyDataSource";
-import { DailyViewModel } from "../viewmodel/DailyViewModel";
-import { PARAM_ITEM_DATA_KEY } from "../common/Constants";
+import { RankItemWidget } from '../view/RankItemWidget';
+import { LoadMoreWidget } from '../view/LoadingMoreWidget';
+import { PromptAction } from '@kit.ArkUI';
+import { SwiperDataSource } from '../datasource/SwiperDataSource';
+import { Item, ItemData } from '../model/Item';
+import { DailyDataSource } from '../datasource/DailyDataSource';
+import { DailyViewModel } from '../viewmodel/DailyViewModel';
+import { PARAM_ITEM_DATA_KEY } from '../common/Constants';
 
 const TEXT_HEADER_TYPE: string = "textHeader";
 
