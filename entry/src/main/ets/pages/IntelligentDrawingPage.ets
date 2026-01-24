@@ -1,46 +1,45 @@
 import { PromptAction } from '@kit.ArkUI';
 import { inputMethod } from '@kit.IMEKit';
-import { Choice } from '../model/ChatResponse';
-import { Message, QueryChatResultParam } from '../model/dto/QueryChatParam';
-import { ChatLineWidget } from '../view/ChatLineWidget';
-import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel';
-import { hilog } from '@kit.PerformanceAnalysisKit';
+import hilog from '@ohos.hilog';
+import { INTELLIGENT_IMAGE_SYNTHESIS_URL, INTELLIGENT_IMAGE_TASK_QUERY_URL } from '../api/Apis';
+import { TaskPollingUtil } from '../common/AliYunTaskPollingUtil';
+import { QueryResult } from '../model/AliYunQueryTaskResponse';
+import { ImageSynthesisParam, PromptInput } from '../model/dto/ImageSynthesisParam';
+import { Message } from '../model/dto/QueryChatParam';
+import { ChatLineDrawingWidget } from '../view/ChatLineDrawing';
 
-const TAG = "IntelligentWritingPage";
+const TAG = "IntelligentDrawingPage";
 
 @Entry
 @Component
-struct IntelligentWritingPage {
+struct IntelligentDrawingPage {
   private uiContext: UIContext = this.getUIContext();
   private promptAction: PromptAction = this.uiContext.getPromptAction();
-  private viewModel: IntelligentChatViewModel = new IntelligentChatViewModel();
+  // 尺寸下拉选项
+  private sizeArray: Array<SelectOption> = [
+    { value: '512*1024' },
+    { value: '768*512' },
+    { value: '768*1024' },
+    { value: '1024*576' },
+    { value: '576*1024' },
+    { value: '1024*1024' },
+  ];
   // 消息列表
   @State msgList: Message[] = [];
-  // 文章类型
-  @State articleType: string = '文案'
-  // 文章字数
-  @State wordNumberStr: string = '100'
-  // 字数下拉选择菜单
-  @State wordNumberArray: Array<SelectOption> = [
-    { value: '100' },
-    { value: '200' },
-    { value: '300' },
-    { value: '400' },
-    { value: '500' },
-    { value: '600' },
-    { value: '700' },
-    { value: '800' },
-    { value: '900' },
-  ];
-  // 文章主题
-  @State inputSubject: string = ''
-  // 按钮的可见度
+  // 尺寸下拉选项选中的值
+  @State sizeStr: string = '512*1024';
+  // 按钮的透明度
   @State sendButtonOpacity: number = 0.3;
+  // 输入的主题内容
+  @State inputSubject: string = ''
   // 显示加载框
   @State isShowLoading: boolean = false;
-  // 发送给AI助手的消息
-  @State
-  chatInput: string = ''
+  // 发送给AI助手的对话
+  @State chatInput: string = ''
+
+  aboutToDisappear(): void {
+    TaskPollingUtil.cancelAllTasks();
+  }
 
   build() {
     Column() {
@@ -62,7 +61,7 @@ struct IntelligentWritingPage {
         .onClick(() => {
           this.uiContext.getRouter().back();
         })
-      Text($r('app.string.intelligent_writing'))
+      Text($r('app.string.intelligent_drawing'))
         .fontSize(24)
         .width('100%')
         .fontWeight(FontWeight.Bold)
@@ -89,7 +88,7 @@ struct IntelligentWritingPage {
     Scroll() {
       Column() {
         ForEach(this.msgList, (message: Message) => {
-          ChatLineWidget({ msg: message });
+          ChatLineDrawingWidget({ msg: message });
         }, (_message: Message, index: number) => `chat-list-key-${index}`)
       }
       .width('100%')
@@ -111,76 +110,19 @@ struct IntelligentWritingPage {
   @Builder
   private ChatInputView() {
     Column() {
-      // 类型
       Row() {
-        Text($r('app.string.article_type'))
-          .margin({ right: 10 })
+        Text($r('app.string.image_size')).margin({ right: 10 })
 
-        Radio({ group: 'radioGroup', value: '文案' })
-          .checked(true)
-          .onChange((isChecked: boolean) => {
-            if (isChecked) {
-              this.articleType = '文案';
-            }
-          })
-
-        Text('文案')
-          .margin({ right: 10 })
-
-        Radio({ group: 'radioGroup', value: '报告' })
-          .checked(false)
-          .onChange((isChecked: boolean) => {
-            if (isChecked) {
-              this.articleType = '报告';
-            }
-          })
-
-        Text('报告')
-          .margin({ right: 4 })
-
-        Radio({ group: 'radioGroup', value: '日记' })
-          .checked(false)
-          .onChange((isChecked: boolean) => {
-            if (isChecked) {
-              this.articleType = '日记';
-            }
-          })
-
-        Text('日记')
-          .margin({ right: 4 })
-
-        Radio({ group: 'radioGroup', value: '代码' })
-          .checked(false)
-          .onChange((isChecked: boolean) => {
-            if (isChecked) {
-              this.articleType = '代码';
-            }
-          })
-
-        Text('代码')
-          .margin({ right: 4 })
-
-      }
-      .width('100%')
-      .height(50)
-      .justifyContent(FlexAlign.Start)
-      .padding({ left: 4, top: 4 })
-
-      // 字数
-      Row() {
-        Text($r('app.string.word_count'))
-          .margin({ right: 10 })
-
-        Select(this.wordNumberArray)
+        Select(this.sizeArray)
           .selected(0)
-          .font({ size: 16, weight: FontWeight.Medium })
+          .value(this.sizeStr)
+          .font({ size: 16 })
           .fontColor($r('sys.color.black'))
-          .selectedOptionFont({ size: 16, weight: FontWeight.Medium })
+          .selectedOptionFont({ size: 16 })
           .optionWidth(200)
           .optionHeight(300)
-          .value(this.wordNumberStr)
           .onSelect((_index: number, value: string) => {
-            this.wordNumberStr = value;
+            this.sizeStr = value;
           })
       }
       .width('100%')
@@ -188,9 +130,10 @@ struct IntelligentWritingPage {
       .justifyContent(FlexAlign.Start)
       .padding({ left: 4, top: 4 })
 
+      // 主题
       // 对话输入框
       Row() {
-        TextInput({ text: this.inputSubject, placeholder: $r('app.string.input_article_topic') })
+        TextInput({ text: this.inputSubject, placeholder: $r('app.string.input_image_topic') })
           .height(40)
           .layoutWeight(1)
           .borderRadius(4)
@@ -203,7 +146,7 @@ struct IntelligentWritingPage {
             } else {
               this.sendButtonOpacity = 1.0;
               // 组装消息
-              this.chatInput = `帮我写关于${this.inputSubject}的${this.articleType}，字数${this.wordNumberStr}`;
+              this.chatInput = `帮我画一张关于${this.inputSubject}的的图片，尺寸${this.sizeStr}`;
               hilog.info(0, TAG, `chatInput: ${this.chatInput}`);
             }
           })
@@ -232,31 +175,36 @@ struct IntelligentWritingPage {
             this.msgList = [...this.msgList, message];
 
             // 构建请求体
-            const requestMessageList = new Array<Message>();
-            requestMessageList.push(new Message('user', this.chatInput));
-            const param: QueryChatResultParam = new QueryChatResultParam("spark-x", "user_id", requestMessageList);
-            const headers: Record<string, string> = {
-              "Authorization": "Bearer DoCBjyODmXmuLjjkLLBY:tWGmRRiQffYWACxMvjxf",
-              "content-type": "application/json"
+            const promptInput = new PromptInput(this.chatInput);
+            const imageSynthesisParam = new ImageSynthesisParam('wanx-v1', promptInput);
+            // 构建请求头
+            const executeHeaders: Record<string, string> = {
+              "X-DashScope-Async": 'enable',
+              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+              "Content-Type": "application/json"
             }
-            // 发起请求
-            const chatResponse = await this.viewModel.queryData(param, headers)
-            // 处理请求结果
-            if (chatResponse.code === 0) {
-              const choices: Choice[] = chatResponse.choices;
-              const responseMessageList = new Array<Message>();
-              for (const choicesElement of choices) {
-                responseMessageList.push(new Message(choicesElement.message.role, choicesElement.message.content))
+            const queryHeaders: Record<string, string> = {
+              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+            }
+            // 提交任务
+            const pollResult =
+              await TaskPollingUtil.submitAndPoll<QueryResult[]>(INTELLIGENT_IMAGE_SYNTHESIS_URL,
+                INTELLIGENT_IMAGE_TASK_QUERY_URL,
+                imageSynthesisParam, executeHeaders, queryHeaders)
+            // 判断请求结果
+            if (pollResult.success) {
+              const queryResults: QueryResult[] | undefined = pollResult.data;
+              if (queryResults && queryResults.length > 0) {
+                const responseMessage = new Message('assistant', queryResults[0].url)
+                this.msgList = [...this.msgList, responseMessage];
               }
-              this.msgList = [...this.msgList, ...responseMessageList];
-
               // 清空对话框
               this.chatInput = '';
               this.inputSubject = '';
             } else {
               // 提示错误原因
               this.promptAction.openToast({
-                message: chatResponse.message
+                message: pollResult.error
               }).catch(() => {
               })
             }
@@ -287,8 +235,16 @@ struct IntelligentWritingPage {
         right: 4,
         bottom: 4
       })
+
     }
     .width('100%')
-    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
+    .height(100)
+    .margin({
+      left: 4,
+      top: 4,
+      right: 4,
+      bottom: 4
+    })
+    .backgroundColor(Color.White)
   }
 }

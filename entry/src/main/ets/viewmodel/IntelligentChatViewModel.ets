@@ -2,7 +2,7 @@ import { AxiosResponse } from '@ohos/axios';
 import { INTELLIGENT_CHAT_URL } from '../api/Apis';
 import { post } from '../common/http';
 import { ChatResponse } from '../model/ChatResponse';
-import { QueryChatResultParam } from '../model/dto/QueryChatResultParam';
+import { QueryChatResultParam } from '../model/dto/QueryChatParam';
 
 export class IntelligentChatViewModel {
   async queryData(param: QueryChatResultParam, headers?: Record<string, string>): Promise<ChatResponse> {

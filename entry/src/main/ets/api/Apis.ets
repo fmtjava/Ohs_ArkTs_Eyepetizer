@@ -19,3 +19,10 @@ export const RELATED_VIDEO = BASE_URL + "v4/video/related";
 export const TOPIC_DETAIL_URL = BASE_URL + "v3/lightTopics/internal/"
 
 export const INTELLIGENT_CHAT_URL = 'https://spark-api-open.xf-yun.com/v2/chat/completions'
+
+export const INTELLIGENT_IMAGE_SYNTHESIS_URL =
+  'https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis'
+
+export const INTELLIGENT_IMAGE_TASK_QUERY_URL = 'https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}';
+
+

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from '@ohos/axios'
 
-export const get = (url: string): Promise<AxiosResponse<string>> => {
-  return axios.get<string, AxiosResponse<string, null>>(url, { responseType: 'string' })
+export const get = (url: string, headers?: Record<string, string>): Promise<AxiosResponse<string>> => {
+  return axios.get<string, AxiosResponse<string, null>>(url, { responseType: 'string', headers: headers })
 }
 
 export const post = <T>(url: string, params: T, headers?: Record<string, string>): Promise<AxiosResponse<string>> => {

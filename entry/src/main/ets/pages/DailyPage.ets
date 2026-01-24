@@ -126,7 +126,7 @@ export struct DailyPage {
         },
         {
           value: $r('app.string.intelligent_writing'),
-          icon: $rawfile('image/con_intelligent_writing.svg'),
+          icon: $rawfile('image/icon_intelligent_writing.svg'),
           action: () => {
             this.uiContext.getRouter().pushUrl({
               url: 'pages/IntelligentWritingPage'
@@ -134,7 +134,18 @@ export struct DailyPage {
 
             })
           }
-        }
+        },
+        {
+          value: $r('app.string.intelligent_drawing'),
+          icon: $rawfile('image/icon_intelligent_drawing.svg'),
+          action: () => {
+            this.uiContext.getRouter().pushUrl({
+              url: 'pages/IntelligentDrawingPage'
+            }).catch(() => {
+
+            })
+          }
+        },
       ])
     }
     .width('100%')

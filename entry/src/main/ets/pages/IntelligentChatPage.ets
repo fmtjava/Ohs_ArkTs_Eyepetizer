@@ -1,4 +1,4 @@
-import { Message, QueryChatResultParam } from '../model/dto/QueryChatResultParam';
+import { Message, QueryChatResultParam } from '../model/dto/QueryChatParam';
 import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel';
 import { inputMethod } from '@kit.IMEKit';
 import { PromptAction } from '@kit.ArkUI';

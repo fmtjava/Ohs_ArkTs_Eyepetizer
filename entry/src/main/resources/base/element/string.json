@@ -78,7 +78,7 @@
     },
     {
       "name": "my_cache",
-      "value": "我的缓存'"
+      "value": "我的缓存"
     },
     {
       "name": "watch_history",
@@ -101,6 +101,10 @@
       "value": "智能写作"
     },
     {
+      "name": "intelligent_drawing",
+      "value": "智能画图"
+    },
+    {
       "name": "send",
       "value": "发送"
     },
@@ -109,12 +113,20 @@
       "value": "输入文章的主题"
     },
     {
+      "name": "input_image_topic",
+      "value": "输入图片的主题"
+    },
+    {
       "name": "article_type",
       "value": "类型："
     },
     {
       "name": "word_count",
       "value": "字数："
+    },
+    {
+      "name": "image_size",
+      "value": "尺寸："
     }
   ]
 }
