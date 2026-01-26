@@ -62,8 +62,9 @@ SwitfUI版：[SwitfUI_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer)
  ### v1.0
    * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放等功能。
 # Thanks
-  - [ohos/axios](https://gitcode.com/openharmony-sig/ohos_axios) 
-  - [ibestservices/ibest-orm](https://github.com/ibestservices/ibest-orm)
+  - [axios](https://gitcode.com/openharmony-sig/ohos_axios) 
+  - [ibest-orm](https://github.com/ibestservices/ibest-orm)
+  - [harmony-utils](https://gitee.com/tongyuyan/harmony-utils)
  
  # 关于我
   - WX：fmtjava
