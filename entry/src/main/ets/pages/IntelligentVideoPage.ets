@@ -1,32 +1,33 @@
 import { PromptAction } from '@kit.ArkUI';
 import hilog from '@ohos.hilog';
-import { INTELLIGENT_IMAGE_SYNTHESIS_URL, INTELLIGENT_IMAGE_TASK_QUERY_URL } from '../api/Apis';
+import {
+  INTELLIGENT_VIDEO_SYNTHESIS_URL, INTELLIGENT_VIDEO_TASK_QUERY_URL
+} from '../api/Apis';
 import { TaskPollingUtil } from '../common/AliYunTaskPollingUtil';
-import { QueryResult } from '../model/AliYunQueryTaskResponse';
-import { ImagePromptInput, ImageSynthesisParam } from '../model/dto/ImageSynthesisParam';
 import { Message } from '../model/dto/QueryChatParam';
-import { ChatLineDrawingWidget } from '../view/ChatLineDrawingWidget';
+import { VideoParameter, VideoPromptInput, VideoSynthesisParam } from '../model/dto/VideoSynthesisParam';
+import { ChatLineVideoWidget } from '../view/ChatLineVideoWidget';
+import { VideoThumbnailExtractor } from '../common/VideoThumbnailExtractor';
 
-const TAG = "IntelligentDrawingPage";
+const TAG = "IntelligentVideoPage";
 
 @Entry
 @Component
-struct IntelligentDrawingPage {
+struct IntelligentVideoPage {
   private uiContext: UIContext = this.getUIContext();
   private promptAction: PromptAction = this.uiContext.getPromptAction();
   // 尺寸下拉选项
   private sizeArray: Array<SelectOption> = [
-    { value: '512*1024' },
-    { value: '768*512' },
-    { value: '768*1024' },
-    { value: '1024*576' },
-    { value: '576*1024' },
-    { value: '1024*1024' },
+    { value: '1280*720' },
+    { value: '720*1280' },
+    { value: '960*960' },
+    { value: '1088*832' },
+    { value: '832*1088' },
   ];
   // 消息列表
   @State msgList: Message[] = [];
   // 尺寸下拉选项选中的值
-  @State sizeStr: string = '512*1024';
+  @State sizeStr: string = '1280*720';
   // 按钮的透明度
   @State sendButtonOpacity: number = 0.3;
   // 输入的主题内容
@@ -60,7 +61,7 @@ struct IntelligentDrawingPage {
         .onClick(() => {
           this.uiContext.getRouter().back();
         })
-      Text($r('app.string.intelligent_drawing'))
+      Text($r('app.string.intelligent_video'))
         .fontSize(24)
         .width('100%')
         .fontWeight(FontWeight.Bold)
@@ -87,7 +88,7 @@ struct IntelligentDrawingPage {
     Scroll() {
       Column() {
         ForEach(this.msgList, (message: Message) => {
-          ChatLineDrawingWidget({ msg: message });
+          ChatLineVideoWidget({ msg: message });
         }, (_message: Message, index: number) => `chat-list-key-${index}`)
       }
       .width('100%')
@@ -110,7 +111,7 @@ struct IntelligentDrawingPage {
   private ChatInputView() {
     Column() {
       Row() {
-        Text($r('app.string.image_size')).margin({ right: 10 })
+        Text($r('app.string.video_size')).margin({ right: 10 })
 
         Select(this.sizeArray)
           .selected(0)
@@ -132,7 +133,7 @@ struct IntelligentDrawingPage {
       // 主题
       // 对话输入框
       Row() {
-        TextInput({ text: this.inputSubject, placeholder: $r('app.string.input_image_topic') })
+        TextInput({ text: this.inputSubject, placeholder: $r('app.string.input_video_topic') })
           .height(40)
           .layoutWeight(1)
           .borderRadius(4)
@@ -145,7 +146,7 @@ struct IntelligentDrawingPage {
             } else {
               this.sendButtonOpacity = 1.0;
               // 组装消息
-              this.chatInput = `帮我画一张关于${this.inputSubject}的图片，尺寸${this.sizeStr}`;
+              this.chatInput = `帮我做一个关于${this.inputSubject}的视频`;
               hilog.info(0, TAG, `chatInput: ${this.chatInput}`);
             }
           })
@@ -172,8 +173,9 @@ struct IntelligentDrawingPage {
             this.msgList = [...this.msgList, message];
 
             // 构建请求体
-            const promptInput = new ImagePromptInput(this.chatInput);
-            const imageSynthesisParam = new ImageSynthesisParam('wanx-v1', promptInput);
+            const promptInput = new VideoPromptInput(this.chatInput);
+            const videoParameter = new VideoParameter(this.sizeStr, false, 5, 'single');
+            const imageSynthesisParam = new VideoSynthesisParam('wanx2.1-t2v-plus', promptInput, videoParameter);
             // 构建请求头
             const executeHeaders: Record<string, string> = {
               "X-DashScope-Async": 'enable',
@@ -185,14 +187,22 @@ struct IntelligentDrawingPage {
             }
             // 提交任务
             const pollResult =
-              await TaskPollingUtil.submitAndPoll<ImageSynthesisParam, QueryResult[]>(INTELLIGENT_IMAGE_SYNTHESIS_URL,
-                INTELLIGENT_IMAGE_TASK_QUERY_URL,
+              await TaskPollingUtil.submitAndPoll<VideoSynthesisParam, string>(INTELLIGENT_VIDEO_SYNTHESIS_URL,
+                INTELLIGENT_VIDEO_TASK_QUERY_URL,
                 imageSynthesisParam, executeHeaders, queryHeaders)
             // 判断请求结果
             if (pollResult.success) {
-              const queryResults: QueryResult[] | undefined = pollResult.data;
-              if (queryResults && queryResults.length > 0) {
-                const responseMessage = new Message('assistant', queryResults[0].url)
+              const videoUrl: string | undefined = pollResult.data;
+              if (videoUrl) {
+                // 获取视频封面
+                const sizeArr = this.sizeStr.split("*")
+                const videoWidth = parseInt(sizeArr[0])
+                const videoHeight = parseInt(sizeArr[1])
+                const thumbnail = await VideoThumbnailExtractor.getThumbnailFromUri(videoUrl, videoWidth, videoHeight);
+                const responseMessage = new Message('assistant', videoUrl);
+                if (thumbnail) {
+                  responseMessage.thumbnail = thumbnail;
+                }
                 this.msgList = [...this.msgList, responseMessage];
               }
               // 清空对话框

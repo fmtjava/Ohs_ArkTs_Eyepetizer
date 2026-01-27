@@ -94,15 +94,19 @@
     },
     {
       "name": "intelligent_chat",
-      "value": "智能对话"
+      "value": "AI对话"
     },
     {
       "name": "intelligent_writing",
-      "value": "智能写作"
+      "value": "AI写作"
     },
     {
       "name": "intelligent_drawing",
-      "value": "智能画图"
+      "value": "AI画图"
+    },
+    {
+      "name": "intelligent_video",
+      "value": "AI生视频"
     },
     {
       "name": "send",
@@ -117,6 +121,10 @@
       "value": "输入图片的主题"
     },
     {
+      "name": "input_video_topic",
+      "value": "输入视频的主题"
+    },
+    {
       "name": "article_type",
       "value": "类型："
     },
@@ -127,6 +135,10 @@
     {
       "name": "image_size",
       "value": "尺寸："
+    },
+    {
+      "name": "video_size",
+      "value": "分辨率："
     }
   ]
 }

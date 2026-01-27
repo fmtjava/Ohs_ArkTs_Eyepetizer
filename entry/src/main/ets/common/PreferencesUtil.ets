@@ -97,9 +97,7 @@ export class PreferencesUtil {
       console.error('PreferencesUtil getNumber error: ' + JSON.stringify(error));
       return defaultValue;
     }
-  }
-
-  /**
+  }  /**
    * 存储布尔值数据
    * @param context 应用上下文
    * @param key 键
@@ -113,9 +111,7 @@ export class PreferencesUtil {
     } catch (error) {
       console.error('PreferencesUtil putBoolean error: ' + JSON.stringify(error));
     }
-  }
-
-  /**
+  }  /**
    * 读取布尔值数据
    * @param context 应用上下文
    * @param key 键

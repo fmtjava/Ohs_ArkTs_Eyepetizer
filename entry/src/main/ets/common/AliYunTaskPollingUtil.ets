@@ -1,8 +1,8 @@
-import { AxiosResponse } from "@ohos/axios";
-import { AliYunQueryTaskResponse } from "../model/AliYunQueryTaskResponse";
-import { AliYunSubmitTaskResponse } from "../model/AliYunSubmitTaskResponse";
-import { ImageSynthesisParam } from "../model/dto/ImageSynthesisParam";
-import { get, post } from "./http";
+import { AxiosResponse } from '@ohos/axios';
+import { INTELLIGENT_IMAGE_SYNTHESIS_URL } from '../api/Apis';
+import { AliYunQueryTaskResponse } from '../model/AliYunQueryTaskResponse';
+import { AliYunSubmitTaskResponse } from '../model/AliYunSubmitTaskResponse';
+import { get, post } from './http';
 
 enum TaskStatus {
   PENDING = 'PENDING',
@@ -27,14 +27,14 @@ export class TaskPollingUtil {
   // 简单任务记录（仅存储任务ID和时间戳）
   private static activeTasks: Map<string, number> = new Map();
 
-  static async submitAndPoll<T>(
+  static async submitAndPoll<Param, Data>(
     executeUrl: string,
     queryUrl: string,
     executeParams: object,
     executeHeaders?: Record<string, string>,
     queryHeaders?: Record<string, string>,
     pollInterval: number = 3000
-  ): Promise<PollResult<T>> {
+  ): Promise<PollResult<Data>> {
     // 1、生成唯一任务ID（时间戳+随机数）
     const submitTaskId = `task_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
     // 2、记录任务开始时间
@@ -43,12 +43,13 @@ export class TaskPollingUtil {
     try {
       // 3、提交任务获取taskId
       const response: AxiosResponse<string> =
-        await post<ImageSynthesisParam>(executeUrl, executeParams as ImageSynthesisParam, executeHeaders);
+        await post<Param>(executeUrl, executeParams as Param, executeHeaders);
       const submitTaskResponse: AliYunSubmitTaskResponse = JSON.parse(response.data);
 
       const realTaskId = submitTaskResponse.output.task_id;
 
       if (!realTaskId) {
+        TaskPollingUtil.activeTasks.delete(submitTaskId);
         throw new Error("任务提交失败: 未获取到taskId");
       }
 
@@ -72,7 +73,8 @@ export class TaskPollingUtil {
           return {
             success: true,
             taskId: realTaskId,
-            data: queryTaskResponse.output.results as T
+            data: executeUrl === INTELLIGENT_IMAGE_SYNTHESIS_URL ? queryTaskResponse.output.results as Data :
+              queryTaskResponse.output.video_url as Data
           };
         }
 

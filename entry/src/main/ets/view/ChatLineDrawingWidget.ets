@@ -1,25 +1,25 @@
-import { Message } from '../model/dto/QueryChatParam'
+import { Message } from "../model/dto/QueryChatParam"
 
 const ASSISTANT_ROLE = 'assistant'
 
 @Component
-export struct ChatLineWidget {
+export struct ChatLineDrawingWidget {
   @ObjectLink msg: Message
 
   build() {
     if (this.msg.role === ASSISTANT_ROLE) {
       Row() {
-        Text(this.msg.content)
-          .fontSize(20)
+        Image(this.msg.content)
           .padding({
-            left: 8,
-            top: 8,
-            right: 8,
-            bottom: 8
+            left: 4,
+            top: 4,
+            right: 4,
+            bottom: 4
           })
-          .borderRadius(8)
-          .backgroundColor($r('sys.color.white'))
           .constraintSize({ maxWidth: '90%' })
+          .borderRadius(8)
+          .align(Alignment.BottomEnd)
+          .backgroundColor(Color.White)
       }
       .width('100%')
       .padding({

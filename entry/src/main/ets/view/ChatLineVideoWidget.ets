@@ -3,25 +3,32 @@ import { Message } from "../model/dto/QueryChatParam"
 const ASSISTANT_ROLE = 'assistant'
 
 @Component
-export struct ChatLineDrawingWidget {
-  @Prop msg: Message
+export struct ChatLineVideoWidget {
+  @ObjectLink msg: Message
+  private videoController: VideoController = new VideoController();
+
+  aboutToDisappear(): void {
+    this.videoController.stop();
+  }
 
   build() {
     if (this.msg.role === ASSISTANT_ROLE) {
       Row() {
-        Image(this.msg.content)
-          .padding({
-            left: 4,
-            top: 4,
-            right: 4,
-            bottom: 4
-          })
-          .constraintSize({ maxWidth: '90%' })
+        Video({
+          previewUri: this.msg.thumbnail,
+          src: this.msg.content,
+          controller: this.videoController
+        })
+          .width('100%')
+          .height(200)
+          .controls(true)
+          .autoPlay(false)
+          .objectFit(ImageFit.Contain)
+          .loop(false)
           .borderRadius(8)
-          .align(Alignment.BottomEnd)
           .backgroundColor(Color.White)
       }
-      .width('100%')
+      .constraintSize({ maxWidth: '90%' })
       .padding({
         left: 4,
         top: 4,

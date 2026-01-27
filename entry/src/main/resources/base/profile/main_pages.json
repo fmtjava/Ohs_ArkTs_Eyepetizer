@@ -8,6 +8,7 @@
     "pages/TopicDetailPage",
     "pages/IntelligentChatPage",
     "pages/IntelligentWritingPage",
-    "pages/IntelligentDrawingPage"
+    "pages/IntelligentDrawingPage",
+    "pages/IntelligentVideoPage"
   ]
 }

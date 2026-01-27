@@ -146,6 +146,17 @@ export struct DailyPage {
             })
           }
         },
+        {
+          value: $r('app.string.intelligent_video'),
+          icon: $rawfile('image/icon_intelligent_video.svg'),
+          action: () => {
+            this.uiContext.getRouter().pushUrl({
+              url: 'pages/IntelligentVideoPage'
+            }).catch(() => {
+
+            })
+          }
+        },
       ])
     }
     .width('100%')

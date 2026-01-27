@@ -1,3 +1,5 @@
+import { image } from "@kit.ImageKit"
+
 export class QueryChatResultParam {
   public model: string
   public user: string
@@ -10,12 +12,16 @@ export class QueryChatResultParam {
   }
 }
 
+@Observed
 export class Message {
   public  role: string
   public content: string
+  public thumbnail?: image.PixelMap
 
-  constructor(role: string, content: string) {
+  constructor(role: string, content: string, thumbnail?: image.PixelMap) {
     this.role = role
     this.content = content
+    this.thumbnail = thumbnail
   }
+
 }

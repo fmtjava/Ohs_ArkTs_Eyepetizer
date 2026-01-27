@@ -1,14 +1,14 @@
 export class ImageSynthesisParam {
   public model: string
-  public input: PromptInput
+  public input: ImagePromptInput
 
-  constructor(model: string, input: PromptInput) {
+  constructor(model: string, input: ImagePromptInput) {
     this.model = model
     this.input = input
   }
 }
 
-export class PromptInput {
+export class ImagePromptInput {
   public prompt: string
 
   constructor(prompt: string) {

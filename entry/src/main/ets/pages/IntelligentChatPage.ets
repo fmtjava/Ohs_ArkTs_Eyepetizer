@@ -1,6 +1,5 @@
 import { Message, QueryChatResultParam } from '../model/dto/QueryChatParam';
 import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel';
-import { inputMethod } from '@kit.IMEKit';
 import { PromptAction } from '@kit.ArkUI';
 import { Choice } from '../model/ChatResponse';
 import { ChatLineWidget } from '../view/ChatLineWidget';
@@ -121,8 +120,6 @@ struct IntelligentChatPage {
           }
           // 显示加载框
           this.isShowLoading = true;
-          // 隐藏软键盘
-          await inputMethod.getController().stopInputSession();
           // 写入到消息列表
           const message: Message = new Message('user', this.chatInput);
           this.msgList = [...this.msgList, message];
@@ -176,6 +173,7 @@ struct IntelligentChatPage {
         .visibility(this.isShowLoading ? Visibility.Visible : Visibility.None)
     }
     .height(50)
+    .backgroundColor(Color.White)
     .margin({
       left: 4,
       top: 4,

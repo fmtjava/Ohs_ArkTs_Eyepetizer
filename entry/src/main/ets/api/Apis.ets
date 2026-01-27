@@ -25,4 +25,7 @@ export const INTELLIGENT_IMAGE_SYNTHESIS_URL =
 
 export const INTELLIGENT_IMAGE_TASK_QUERY_URL = 'https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}';
 
+export const INTELLIGENT_VIDEO_SYNTHESIS_URL =
+  'https://dashscope.aliyuncs.com/api/v1/services/aigc/video-generation/video-synthesis'
 
+export const INTELLIGENT_VIDEO_TASK_QUERY_URL = 'https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}'
