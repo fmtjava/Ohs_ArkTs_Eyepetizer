@@ -1,11 +1,12 @@
 import { Bugly, BuglyBuilder, ModuleName } from 'bugly';
 import { DeviceUtil } from '@pura/harmony-utils';
+import nativeModule from 'libentry.so';
 
 export class BuglyInitializer {
   static init(context: Context): void {
     const builder = new BuglyBuilder();
-    builder.appId = '17a836a117';
-    builder.appKey = 'dd9b0dbe-5d8d-4e6c-a0a2-168ec0621b4b';
+    builder.appId = nativeModule.getBuglyAppId();
+    builder.appKey = nativeModule.getBuglyAppKey();
     builder.deviceId = DeviceUtil.getDeviceId();
     builder.platform = BuglyBuilder.PLATFORM_PRO;
     builder.enablePerfModules = ModuleName.AllModules;

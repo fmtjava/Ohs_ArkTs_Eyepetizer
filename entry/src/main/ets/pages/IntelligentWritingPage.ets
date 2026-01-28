@@ -4,6 +4,7 @@ import { Message, QueryChatResultParam } from '../model/dto/QueryChatParam';
 import { ChatLineWidget } from '../view/ChatLineWidget';
 import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import nativeModule from 'libentry.so';
 
 const TAG = "IntelligentWritingPage";
 
@@ -233,7 +234,7 @@ struct IntelligentWritingPage {
             requestMessageList.push(new Message('user', this.chatInput));
             const param: QueryChatResultParam = new QueryChatResultParam("spark-x", "user_id", requestMessageList);
             const headers: Record<string, string> = {
-              "Authorization": "Bearer DoCBjyODmXmuLjjkLLBY:tWGmRRiQffYWACxMvjxf",
+              "Authorization": `Bearer ${nativeModule.getSparkAPIPassword()}`,
               "content-type": "application/json"
             }
             // 发起请求

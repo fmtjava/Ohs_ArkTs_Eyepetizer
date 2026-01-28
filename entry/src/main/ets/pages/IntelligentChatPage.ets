@@ -3,6 +3,7 @@ import { IntelligentChatViewModel } from '../viewmodel/IntelligentChatViewModel'
 import { PromptAction } from '@kit.ArkUI';
 import { Choice } from '../model/ChatResponse';
 import { ChatLineWidget } from '../view/ChatLineWidget';
+import nativeModule from 'libentry.so';
 
 @Entry
 @Component
@@ -129,7 +130,7 @@ struct IntelligentChatPage {
           requestMessageList.push(new Message('user', this.chatInput));
           const param: QueryChatResultParam = new QueryChatResultParam("spark-x", "user_id", requestMessageList);
           const headers: Record<string, string> = {
-            "Authorization": "Bearer DoCBjyODmXmuLjjkLLBY:tWGmRRiQffYWACxMvjxf",
+            "Authorization": `Bearer ${nativeModule.getSparkAPIPassword()}`,
             "content-type": "application/json"
           }
           // 发起请求

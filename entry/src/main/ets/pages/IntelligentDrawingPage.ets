@@ -6,6 +6,7 @@ import { QueryResult } from '../model/AliYunQueryTaskResponse';
 import { ImagePromptInput, ImageSynthesisParam } from '../model/dto/ImageSynthesisParam';
 import { Message } from '../model/dto/QueryChatParam';
 import { ChatLineDrawingWidget } from '../view/ChatLineDrawingWidget';
+import nativeModule from 'libentry.so';
 
 const TAG = "IntelligentDrawingPage";
 
@@ -177,11 +178,11 @@ struct IntelligentDrawingPage {
             // 构建请求头
             const executeHeaders: Record<string, string> = {
               "X-DashScope-Async": 'enable',
-              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+              "Authorization": `Bearer ${nativeModule.getAliYunAPIPassword()}`,
               "Content-Type": "application/json"
             }
             const queryHeaders: Record<string, string> = {
-              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+              "Authorization": `Bearer ${nativeModule.getAliYunAPIPassword()}`,
             }
             // 提交任务
             const pollResult =

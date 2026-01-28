@@ -8,6 +8,7 @@ import { Message } from '../model/dto/QueryChatParam';
 import { VideoParameter, VideoPromptInput, VideoSynthesisParam } from '../model/dto/VideoSynthesisParam';
 import { ChatLineVideoWidget } from '../view/ChatLineVideoWidget';
 import { VideoThumbnailExtractor } from '../common/VideoThumbnailExtractor';
+import nativeModule from 'libentry.so';
 
 const TAG = "IntelligentVideoPage";
 
@@ -179,11 +180,11 @@ struct IntelligentVideoPage {
             // 构建请求头
             const executeHeaders: Record<string, string> = {
               "X-DashScope-Async": 'enable',
-              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+              "Authorization": `Bearer ${nativeModule.getAliYunAPIPassword()}`,
               "Content-Type": "application/json"
             }
             const queryHeaders: Record<string, string> = {
-              "Authorization": "Bearer sk-fdaea273c883498c8ab7cf047e22fcd8",
+              "Authorization": `Bearer ${nativeModule.getAliYunAPIPassword()}`,
             }
             // 提交任务
             const pollResult =
