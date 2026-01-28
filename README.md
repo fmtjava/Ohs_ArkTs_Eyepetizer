@@ -70,7 +70,7 @@ SwitfUI版：[SwitfUI_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer)
    
  # 更新日志
  ### v1.0
-   * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放等功能。
+   * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放、AI 对话、AI 写作、AI 画图、AI 生视频等功能。
 # Thanks
   - [axios](https://gitcode.com/openharmony-sig/ohos_axios) 
   - [ibest-orm](https://github.com/ibestservices/ibest-orm)
