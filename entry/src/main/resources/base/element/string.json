@@ -139,6 +139,18 @@
     {
       "name": "video_size",
       "value": "分辨率："
+    },
+    {
+      "name": "permission_reason_read_imagevideo",
+      "value": "需要访问您的相册以选择图片"
+    },
+    {
+      "name": "permission_reason_write_imagevideo",
+      "value": "需要保存图片到您的相册"
+    },
+    {
+      "name": "permission_reason_camera",
+      "value": "需要使用相机拍摄照片"
     }
   ]
 }
