@@ -53,6 +53,16 @@ SwitfUI版：[SwitfUI_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer)
   <img src="http://m.qpic.cn/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/45NBuzDIW489QBoVep5mcbYpu*7P3IG2l4cWH6GfBvnqdVqyqZouI4PjFBugExXxW33*OnvA6U035qRyoC41zEE2Ny.ibWXg8ax57IACLYo!/b&bo=OARwCAAAAAABF3Q!&rf=viewer_4" width="255"/>&nbsp;&nbsp;&nbsp;
 </div>
 
+<div style="float:right">
+  <img src="http://photogzmaz.photo.store.qq.com/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/TmEUgtj9EK6.7V8ajmQrECHswzymsHKwur.l3JKZ8c.5hnWvcEPljaRcoCWuGoDzDNVEc.*QLgq8w7GdqoDV3H3A2FtJy05UHY5jgzSlo2U!/b&bo=JAUQCyQFEAsDByI!&rf=viewer_4" width="255"/>
+  <img src="http://photogzmaz.photo.store.qq.com/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/TmEUgtj9EK6.7V8ajmQrECHswzymsHKwur.l3JKZ8c81lRe.aPlA9GcLmiyw*OECWtkGc2nYx.IC*feYKnf0lDWyWFhvrFurUE7aS1NP7zs!/b&bo=JAUQCyQFEAsDR2I!&rf=viewer_4" width="255"/>&nbsp;&nbsp;&nbsp;
+  <img src="http://photogzmaz.photo.store.qq.com/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/TmEUgtj9EK6.7V8ajmQrECHswzymsHKwur.l3JKZ8c9gpi3m1lXYbDJKHKZdOFznfNQl00S7616V2l*v4Nx0CY.QuApoKqeTv2wCwWv*rZk!/b&bo=gAJhBSQFEAsDN84!&rf=viewer_4" width="255"/>&nbsp;&nbsp;&nbsp;
+</div>
+
+<div style="float:right">
+  <img src="http://photogzmaz.photo.store.qq.com/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/TmEUgtj9EK6.7V8ajmQrECHswzymsHKwur.l3JKZ8c.1fY8ZvhdFEV9EsGNtneOVykYG9KzUh6sePs1UkgTkkt.ortC5KwekS.i2KVEdQoM!/b&bo=gAJhBSQFEAsDN84!&rf=viewer_4" width="255"/>
+</div>
+
 # 核心功能
 <div>
   <img src="http://m.qpic.cn/psc?/V526iEgm3HgG9w0K6aQL2X9HJE4OnV96/45NBuzDIW489QBoVep5mcXCiAbUjcKu1jBPbX42kshw8FaB*hM5TU20jQpQjg4LV1NbXenIxDopoT11d0sR.PGeysmxV9wV95CPU3xj*weM!/b&bo=IwY4BAAAAAADJxs!&rf=viewer_4"/>
@@ -60,7 +70,7 @@ SwitfUI版：[SwitfUI_Eyepetizer](https://github.com/fmtjava/SwitfUI_Eyepetizer)
    
  # 更新日志
  ### v1.0
-   * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放等功能。
+   * 初始化项目，完成仿开眼视频App核心功能，目前实现首页、发现、热门、分类、我的、视频详情、视频播放、AI 对话、AI 写作、AI 画图、AI 生视频等功能。
 # Thanks
   - [axios](https://gitcode.com/openharmony-sig/ohos_axios) 
   - [ibest-orm](https://github.com/ibestservices/ibest-orm)
